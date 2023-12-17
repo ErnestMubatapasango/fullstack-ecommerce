@@ -14,7 +14,7 @@ export const Modal: React.FC<ModalProps> = ({ title, description, isOpen, onClos
 
     const onChange = (open: boolean) => {
         if(!open){
-            onClose()
+            onClose();
         }
     }
 
@@ -29,7 +29,10 @@ export const Modal: React.FC<ModalProps> = ({ title, description, isOpen, onClos
                         {description}
                     </DialogDescription>
                 </DialogHeader>
-                {children}
+                <div>
+                    {children}
+                </div>
+               
             </DialogContent>
         </Dialog>
     )
