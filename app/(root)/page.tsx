@@ -3,6 +3,7 @@
 // import { Modal } from "@/components/ui/modal";
 
 import { useStoreModal } from "@/hooks/use-store-modal";
+import { UserButton } from "@clerk/nextjs";
 import React from "react";
 
 
@@ -22,6 +23,7 @@ export default function Home() {
         Children
       </Modal>
     */}
+    <UserButton afterSignOutUrl="" />
     </div>
    
   )

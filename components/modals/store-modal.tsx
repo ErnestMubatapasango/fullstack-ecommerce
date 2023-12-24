@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 
 
 const formSchema = z.object({
-    name: z.string().min(1)
+    name: z.string().min(1) //minimum of characters need to name a form
 })
 
 
@@ -19,7 +19,7 @@ export const StoreModal = () => {
     const storeModal = useStoreModal()
 
     const form = useForm<z.infer<typeof formSchema>>({
-        //resolver is suppose to help with form validation
+        //resolver is suppose to help with form validation using zod
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
@@ -49,6 +49,7 @@ export const StoreModal = () => {
                                             Name
                                         </FormLabel>
                                         <FormControl>
+                                            {/**the field prop */}
                                             <Input placeholder="E comm" {...field}/>
                                         </FormControl>
                                         <FormMessage/>
@@ -58,7 +59,7 @@ export const StoreModal = () => {
                             />
                             <div className="pt-6 flex justify-end items-center gap-2">
                                 <Button onClick={storeModal.onClose} variant={"outline"}>Cancel</Button>            
-                                <Button>Submit</Button>   
+                                <Button type="submit">Submit</Button>   
                             </div>
                         </form>
                                  
