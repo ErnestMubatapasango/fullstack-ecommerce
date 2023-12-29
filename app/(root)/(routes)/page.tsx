@@ -17,14 +17,16 @@ export default function Home() {
       onOpen() 
     }
   }, [isOpen, onOpen])
-  return (
-    <div>
-      {/* <Modal title="Test" description="desc" isOpen onClose={() => {}}>
-        Children
-      </Modal>
-    */}
-    <UserButton afterSignOutUrl="" />
-    </div>
+
+  return null;
+  // return (
+  //   <div>
+  //     {/* <Modal title="Test" description="desc" isOpen onClose={() => {}}>
+  //       Children
+  //     </Modal>
+  //   */}
+  //   <UserButton afterSignOutUrl="" />
+  //   </div>
    
-  )
+  // )
 }
