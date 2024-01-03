@@ -9,10 +9,10 @@ const Navbar = () => {
             <div>
                 store switcher
             </div>
-            <MainNav />
+            <MainNav className='mx-6' />
             <div className='ml-auto flex'>
                 <UserButton  afterSignOutUrl='/'/>
-             </div>
+            </div>
         </div>
        
     </div>
