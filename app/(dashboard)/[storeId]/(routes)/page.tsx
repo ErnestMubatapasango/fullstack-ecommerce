@@ -1,5 +1,21 @@
-export default function DashboardPage(){
+import prismadb from "@/lib/prismadb"
+
+interface DashbaordPageProps {
+    params: {storeId : string}
+}
+
+
+export default  async function DashboardPage({params }: DashbaordPageProps){
+
+    const store = await prismadb.store.findFirst({
+        where: {
+            id: params.storeId
+        }
+    })
+
     return(
-        <>DSH</>
+        <>
+            Active Store: {store.name}
+        </>
     )
 }
