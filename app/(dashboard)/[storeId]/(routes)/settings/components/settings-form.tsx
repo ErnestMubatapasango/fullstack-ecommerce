@@ -42,7 +42,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({initialData}) => {
                 title="Settings"
                 description="Manage store preferences"
             />
-            <Button variant="destructive" size="icon" onClick={() => {}}>
+            <Button variant="destructive" size="icon" disabled={loading} onClick={() => setOpen(true)}>
                 <Trash className='h-4 w-4'/>
             </Button>
         </div>
