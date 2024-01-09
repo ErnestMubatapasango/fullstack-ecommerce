@@ -43,7 +43,6 @@ export async function PATCH( req: Request, {params}: {params: {storeId: string}}
 export async function DELETE( req: Request, {params}: {params: {storeId: string}}) {
     try{
         const {userId} = auth()
-        const body = await req.json()
         
 
         if(!userId){

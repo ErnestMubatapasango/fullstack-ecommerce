@@ -16,7 +16,7 @@ export default async function DashboardLayout({children, params}: {children: Rea
         redirect('/sign-in')
     }
 
-    const store = await prismadb.store.findFirst({
+    const store = await prismadb.store?.findFirst({
         where : {
             id: params.storeId,
             userId: userId
