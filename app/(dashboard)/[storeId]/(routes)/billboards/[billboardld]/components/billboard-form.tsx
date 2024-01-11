@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import Heading from '@/components/ui/heading'
-import { Store } from '@prisma/client'
+import { Billboard } from '@prisma/client'
 import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
@@ -17,17 +17,18 @@ import AlertModal from '@/components/modals/alert-modal'
 import { ApiAlert } from '@/components/ui/api-alert'
 import { useOrigin } from '@/hooks/use.origin'
 
-interface SettingsFormProps {
-    initialData: Store
+interface BillboardFormProps {
+    initialData: Billboard | null
 }
 
-type SettingsFormValues = z.infer<typeof formSchema>
+type BillboardFormValues = z.infer<typeof formSchema>
 
 const formSchema = z.object({
-    name: z.string().min(1)
+    label: z.string().min(1),
+    imageUrl: z.string().min(1)
 })
 
-const SettingsForm: React.FC<SettingsFormProps> = ({initialData}) => {
+const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
 
     const [open, setOpen] = React.useState(false) //this is going to control the alert modal
     const [loading, setLoading] = React.useState(false)
@@ -35,12 +36,15 @@ const SettingsForm: React.FC<SettingsFormProps> = ({initialData}) => {
     const router = useRouter()
     const origin = useOrigin()
 
-    const form = useForm<SettingsFormValues>({
+    const form = useForm<BillboardFormValues>({
         resolver: zodResolver(formSchema),
-        defaultValues: initialData
+        defaultValues: initialData || {
+            label: '',
+            imageUrl: ''
+        }
     })
 
-    const onSubmit = async(data: SettingsFormValues) => {
+    const onSubmit = async(data: BillboardFormValues) => {
         try{
             setLoading(true)
             await axios.patch(`/api/stores/${params.storeId}`, data)
@@ -96,7 +100,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({initialData}) => {
                 <div className='grid grid-cols-3 gap-8 pt-5'>
                     <FormField 
                         control={form.control}
-                        name='name'
+                        label='name'
                         render={({field}) => (
                             <FormItem>
                                 <FormLabel>Name</FormLabel>
@@ -115,14 +119,9 @@ const SettingsForm: React.FC<SettingsFormProps> = ({initialData}) => {
             </form>
 
         </Form>
-        <ApiAlert 
-            title='NEXT_PUBLIC_URL_API'
-            description={`${origin}/api/${params.storeId}`}
-            variant="public"
-        />
     </>
   
   )
 }
 
-export default SettingsForm
+export default BillBoardForm
