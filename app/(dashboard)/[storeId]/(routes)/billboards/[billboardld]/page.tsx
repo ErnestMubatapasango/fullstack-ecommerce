@@ -3,19 +3,17 @@ import React from 'react'
 import BillBoardForm from './components/billboard-form'
 
 
-const BillboardPage = async({params} : {params: {billboardId?: string}}) => {
-
-  const billboardId = params.billboardId || ''
+const BillboardPage = async({params} : {params: {billboardId: string}}) => {
 
     const billboard = await prismadb.billboard.findUnique({
         where: {
-            id: billboardId
+            id: params.billboardId
         }
     })
-    const initialData = billboard ? { ...billboard } : null;
+   
   return (
     <div>
-        <BillBoardForm initialData={initialData}/>
+        <BillBoardForm initialData={billboard}/>
     </div>
   )
 }
