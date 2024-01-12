@@ -17,9 +17,6 @@ import AlertModal from '@/components/modals/alert-modal'
 import { ApiAlert } from '@/components/ui/api-alert'
 import { useOrigin } from '@/hooks/use.origin'
 
-interface BillboardFormProps {
-    initialData: Billboard | null
-}
 
 type BillboardFormValues = z.infer<typeof formSchema>
 
@@ -28,6 +25,9 @@ const formSchema = z.object({
     imageUrl: z.string().min(1)
 })
 
+interface BillboardFormProps {
+    initialData: Billboard | null
+}
 const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
 
     const [open, setOpen] = React.useState(false) //this is going to control the alert modal
@@ -35,6 +35,11 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
     const params = useParams()
     const router = useRouter()
     const origin = useOrigin()
+
+    const title = initialData? "Edit Billboard" : "Create Billboard"
+    const description = initialData ? "Edit a billboard": "Add a new billboard"
+    const toastMessage = initialData ? "Billboard updated" :"Billboard created"
+    const action = initialData ? "Save changes" : "Create"
 
     const form = useForm<BillboardFormValues>({
         resolver: zodResolver(formSchema),
@@ -48,7 +53,7 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
         try{
             setLoading(true)
             await axios.patch(`/api/stores/${params.storeId}`, data)
-            toast.success("Store updated successfully")
+            toast.success(`${toastMessage}`)
             router.refresh()
         }
         catch(error){
@@ -86,8 +91,8 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
         />
         <div className="flex items-center justify-between pb-2">
             <Heading 
-                title="Settings"
-                description="Manage store preferences"
+                title={title}
+                description={description}
             />
             <Button variant="destructive" size="icon" disabled={loading} onClick={() => setOpen(true)}>
                 <Trash className='h-4 w-4'/>
@@ -100,12 +105,12 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
                 <div className='grid grid-cols-3 gap-8 pt-5'>
                     <FormField 
                         control={form.control}
-                        label='name'
+                        name='label'
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>Label</FormLabel>
                                 <FormControl>
-                                    <Input disabled={loading} placeholder="Store name" {...field} />
+                                    <Input disabled={loading} placeholder="Billboard name" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -114,7 +119,7 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
 
                 </div>
                 <Button disabled={loading} type='submit' className='ml-auto'>
-                    Save changes
+                    {action}
                 </Button>
             </form>
 
