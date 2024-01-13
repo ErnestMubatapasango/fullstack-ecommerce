@@ -16,6 +16,7 @@ import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/alert-modal'
 import { ApiAlert } from '@/components/ui/api-alert'
 import { useOrigin } from '@/hooks/use.origin'
+import ImageUpload from '@/components/ui/image-upload'
 
 
 type BillboardFormValues = z.infer<typeof formSchema>
@@ -94,15 +95,39 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
                 title={title}
                 description={description}
             />
-            <Button variant="destructive" size="icon" disabled={loading} onClick={() => setOpen(true)}>
-                <Trash className='h-4 w-4'/>
-            </Button>
+            {initialData && (
+                <Button variant="destructive" size="icon" disabled={loading} onClick={() => setOpen(true)}>
+                    <Trash className='h-4 w-4'/>
+                </Button>
+            )}
+           
         </div>
         <Separator />
 
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full'>
-                <div className='grid grid-cols-3 gap-8 pt-5'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full pb-3'>
+                <div className='pt-4'>
+                    <FormField 
+                        control={form.control}
+                        name='imageUrl'
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Background Image</FormLabel>
+                                <FormControl>
+                                    <ImageUpload 
+                                        value={field.value ? [field.value] : []} 
+                                        onRemove={() => field.onChange("")}
+                                        disabled={loading}
+                                        onChange={(url) => field.onChange(url)}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                
+                <div className='grid grid-cols-3 gap-8'>
                     <FormField 
                         control={form.control}
                         name='label'
@@ -124,6 +149,7 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             </form>
 
         </Form>
+        <Separator />
     </>
   
   )
