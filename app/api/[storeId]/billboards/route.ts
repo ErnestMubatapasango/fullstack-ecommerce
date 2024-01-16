@@ -51,7 +51,7 @@ export async function POST( req: Request, {params}: {params: {storeId: string} }
         return NextResponse.json(billboard)
     }
     catch(error){
-        console.log('[BILLBOARD_POST]', error);
+        console.log('[BILLBOARDS_POST]', error);
         return new NextResponse("Internal Server error", { status: 500 })
     }
 }   
