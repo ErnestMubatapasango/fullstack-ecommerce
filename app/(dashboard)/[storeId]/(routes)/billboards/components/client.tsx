@@ -7,9 +7,10 @@ import { Billboard } from '@prisma/client'
 import { Plus } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
+import { BillboardColumn } from './column'
 
 interface BillboardClientProps {
-    data: Billboard[]
+    data: BillboardColumn[]
 }
 
 const BillboardClient: React.FC<BillboardClientProps> = ({data}) => {
