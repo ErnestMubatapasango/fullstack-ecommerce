@@ -14,8 +14,8 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/alert-modal'
-import { ApiAlert } from '@/components/ui/api-alert'
-import { useOrigin } from '@/hooks/use.origin'
+
+
 import ImageUpload from '@/components/ui/image-upload'
 
 
@@ -27,7 +27,7 @@ const formSchema = z.object({
 })
 
 interface BillboardFormProps {
-    initialData: Billboard | null
+    initialData: Billboard 
 }
 const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
 
@@ -35,9 +35,9 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
     const [loading, setLoading] = React.useState(false)
     const params = useParams()
     const router = useRouter()
-    const origin = useOrigin()
+ 
 
-    const title = initialData? "Edit Billboard" : "Create Billboard"
+    const title = initialData ? "Edit Billboard" : "Create Billboard"
     const description = initialData ? "Edit a billboard": "Add a new billboard"
     const toastMessage = initialData ? "Billboard updated" :"Billboard created"
     const action = initialData ? "Save changes" : "Create"
@@ -60,9 +60,9 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             else{
                 await axios.post(`/api/${params.storeId}/billboards`, data)
             }
-            toast.success(`${toastMessage}`)
             router.refresh()
             router.push(`/${params.storeId}/billboards`)
+            toast.success(`${toastMessage}`)
         }
         catch(error){
             toast.error("Something went wrong")
@@ -78,6 +78,7 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             await axios.delete(`/api/${params.storeId}/${params.billboardId}`)
             router.refresh()
             router.push(`/${params.storeId}/billboards`)
+            
             toast.success("Billboard has been deleted successfully")
         }
         catch(error){
