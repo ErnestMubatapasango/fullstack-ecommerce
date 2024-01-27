@@ -82,9 +82,7 @@ export async function DELETE( req: Request, {params}: {params : {storeId: string
 
     try{
         const {userId} = auth()
-        const body = await req.json()
-        const {label, imageUrl} = body;
-
+       
         if(!userId) {
             return new NextResponse("user ID is required", {status: 400})
         }

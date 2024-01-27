@@ -19,28 +19,25 @@ import AlertModal from '@/components/modals/alert-modal'
 import ImageUpload from '@/components/ui/image-upload'
 
 
-type BillboardFormValues = z.infer<typeof formSchema>
+
 
 const formSchema = z.object({
     label: z.string().min(1),
     imageUrl: z.string().min(1)
 })
 
+type BillboardFormValues = z.infer<typeof formSchema>
+
 interface BillboardFormProps {
-    initialData: Billboard 
+    initialData: Billboard | null
 }
+
 const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
 
     const [open, setOpen] = React.useState(false) //this is going to control the alert modal
     const [loading, setLoading] = React.useState(false)
     const params = useParams()
     const router = useRouter()
- 
-
-    const title = initialData ? "Edit Billboard" : "Create Billboard"
-    const description = initialData ? "Edit a billboard": "Add a new billboard"
-    const toastMessage = initialData ? "Billboard updated" :"Billboard created"
-    const action = initialData ? "Save changes" : "Create"
 
     const form = useForm<BillboardFormValues>({
         resolver: zodResolver(formSchema),
@@ -49,20 +46,27 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             imageUrl: ''
         }
     })
+    console.log(initialData)
+
+    const title = initialData ? "Edit Billboard" : "Create Billboard"
+    const description = initialData ? "Edit a billboard": "Add a new billboard"
+    const toastMessage = initialData ? "Billboard updated" :"Billboard created"
+    const action = initialData ? "Save changes" : "Create"
 
     const onSubmit = async(data: BillboardFormValues) => {
 
         try{
             setLoading(true)
+
             if(initialData){
-                await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data)
+                await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`,data)
             }
             else{
                 await axios.post(`/api/${params.storeId}/billboards`, data)
             }
-            router.refresh()
             router.push(`/${params.storeId}/billboards`)
-            toast.success(`${toastMessage}`)
+            router.refresh()
+            toast.success(toastMessage)
         }
         catch(error){
             toast.error("Something went wrong")
@@ -75,10 +79,9 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
     const onDelete = async() => {
         try{
             setLoading(true)
-            await axios.delete(`/api/${params.storeId}/${params.billboardId}`)
-            router.refresh()
+            await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`)
             router.push(`/${params.storeId}/billboards`)
-            
+            router.refresh()
             toast.success("Billboard has been deleted successfully")
         }
         catch(error){
