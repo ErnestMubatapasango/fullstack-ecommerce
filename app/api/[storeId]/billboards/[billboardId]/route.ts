@@ -55,7 +55,7 @@ export async function PATCH( req: Request, {params}: {params : {storeId: string,
         })
 
         if(!storeByUserId){
-            return new NextResponse("Ünauthorized", {status: 403})
+            return new NextResponse("Unauthorized", {status: 403})
         }
 
         const billboard = await prismadb.billboard.updateMany({
@@ -84,7 +84,7 @@ export async function DELETE( req: Request, {params}: {params : {storeId: string
         const {userId} = auth()
        
         if(!userId) {
-            return new NextResponse("user ID is required", {status: 400})
+            return new NextResponse("user ID is required", {status: 401})
         }
         
 

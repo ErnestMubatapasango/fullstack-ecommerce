@@ -13,8 +13,8 @@ const BillboardPage = async({params} : {params: {billboardId: string}}) => {
    console.log(`Billboard ${billboard?.label}`)
   return (
     <div className='p-8'>
-      Tawanda
-        {/* <BillBoardForm initialData={billboard}/> */}
+      
+        <BillBoardForm initialData={billboard}/>
       
     </div>
     
