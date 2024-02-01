@@ -7,14 +7,14 @@ const BillboardPage = async({params} : {params: {billboardId: string}}) => {
 
     const billboard = await prismadb.billboard.findUnique({
         where: {
-            id: params.billboardId || ''
+            id: params.billboardId
         }
     })
-   
+   console.log(`Billboard ${billboard?.label}`)
   return (
     <div className='p-8'>
-      
-        <BillBoardForm initialData={billboard}/>
+      Tawanda
+        {/* <BillBoardForm initialData={billboard}/> */}
       
     </div>
     
