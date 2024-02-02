@@ -19,7 +19,7 @@ export const CellAction: React.FC<CellActionProps> = ({data}) => {
 
     const onCopy = (id: string) => {
         navigator.clipboard.writeText(id);
-        toast.success("Billboard ID has been copied to clipboard")
+        toast.success("Category ID has been copied to clipboard")
     }
 
     const router = useRouter()
@@ -65,7 +65,7 @@ export const CellAction: React.FC<CellActionProps> = ({data}) => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem className="gap-1 cursor-pointer" onClick={()=> router.push(`/${params.storeId}/billboards/${data.id}`)}>
+                        <DropdownMenuItem className="gap-1 cursor-pointer" onClick={()=> router.push(`/${params.storeId}/categories/${data.id}`)}>
                             <Edit className="w-4 h-4" />
                             Update
                         </DropdownMenuItem>
