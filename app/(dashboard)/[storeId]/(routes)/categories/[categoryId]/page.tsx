@@ -1,24 +1,29 @@
 import prismadb from '@/lib/prismadb'
 import React from 'react'
-import BillBoardForm from './components/billboard-form'
+import CategoryForm from './components/category-form'
 
 
-const BillboardPage = async({params} : {params: {billboardId: string}}) => {
+const CategoryPage = async({params} : {params: {categoryId: string, storeId: string}}) => {
 
-    const billboard = await prismadb.billboard.findUnique({
+    const category = await prismadb.category.findUnique({
         where: {
-            id: params.billboardId || ''
+            id: params.categoryId
         }
+    })
+    const billboard = await prismadb.billboard.findMany({
+      where:{
+        storeId: params.storeId
+      }
     })
    
   return (
     <div className='p-8'>
       
-        <BillBoardForm initialData={billboard}/>
+        <CategoryForm billboards={billboard} initialData={category}/>
       
     </div>
     
   )
 }
 
-export default BillboardPage
+export default CategoryPage

@@ -1,7 +1,7 @@
 "use client"
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { BillboardColumn } from "./column"
+import {CategoryColumn } from "./column"
 import { Button } from "@/components/ui/button"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
 import toast from "react-hot-toast"
@@ -12,7 +12,7 @@ import AlertModal from "@/components/modals/alert-modal"
 
 
 interface CellActionProps {
-    data: BillboardColumn
+    data: CategoryColumn
 }
 
 export const CellAction: React.FC<CellActionProps> = ({data}) => {
@@ -31,13 +31,13 @@ export const CellAction: React.FC<CellActionProps> = ({data}) => {
     const onDelete = async() => {
         try{
             setLoading(true)
-            await axios.delete(`/api/${params.storeId}/billboards/${data.id}`)
-            router.push(`/${params.storeId}/billboards`) 
+            await axios.delete(`/api/${params.storeId}/categories/${data.id}`)
+            router.push(`/${params.storeId}/categories`) 
             router.refresh()
-            toast.success("Billboard has been deleted successfully")
+            toast.success("Category has been deleted successfully")
         }
         catch(error){
-            toast.error("You need to delete the products and categories first")
+            toast.error("You need to delete the products first")
         }
         finally{
             setLoading(false)
