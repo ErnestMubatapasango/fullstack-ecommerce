@@ -2,48 +2,48 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, {params}: {params: {storeId: string, billboardId: string}}){
+export async function GET(req: Request, {params}: {params: {storeId: string, sizeId: string}}){
 
     try{
 
-        if(!params.billboardId){
+        if(!params.sizeId){
             return new NextResponse("Billboard ID is required", {status: 400})
         }
 
-        const billboard = prismadb.billboard.findUnique({
+        const size = prismadb.size.findUnique({
             where: {
-                id: params.billboardId
+                id: params.sizeId
             }
         })
 
-        return NextResponse.json(billboard)
+        return NextResponse.json(size)
     }
     catch(error){
-        console.log('[BILLBOARD_GET]', error);
+        console.log('[SIZE_GET]', error);
         return new NextResponse("Something went wrong", {status: 500})
     }
 }
 
-export async function PATCH( req: Request, {params}: {params : {storeId: string, billboardId: string}}) {
+export async function PATCH( req: Request, {params}: {params : {storeId: string, sizeId: string}}) {
 
     try{
         const {userId} = auth()
         const body = await req.json()
-        const {label, imageUrl} = body;
+        const {name, value} = body;
 
         if(!userId) {
             return new NextResponse("user ID is required", {status: 400})
         }
         
-        if(!label) {
-            return new NextResponse("Label is required", {status: 400})
+        if(!name) {
+            return new NextResponse("Name is required", {status: 400})
         }
 
-        if(!imageUrl) {
-            return new NextResponse("Image URL is required", {status: 400})
+        if(!value) {
+            return new NextResponse("Value is required", {status: 400})
         }
 
-        if(!params.billboardId){
+        if(!params.sizeId){
             return new NextResponse("Billboard ID is required", {status: 400})
         }
 
@@ -60,11 +60,11 @@ export async function PATCH( req: Request, {params}: {params : {storeId: string,
 
         const billboard = await prismadb.billboard.updateMany({
             where: {
-                id: params.billboardId,
+                id: params.sizeId,
             },
             data: {
-                label,
-                imageUrl
+                name,
+                value
             }
         })
 
@@ -78,7 +78,7 @@ export async function PATCH( req: Request, {params}: {params : {storeId: string,
 }
 
 
-export async function DELETE( req: Request, {params}: {params : {storeId: string, billboardId: string}}) {
+export async function DELETE( req: Request, {params}: {params : {storeId: string, sizeId: string}}) {
 
     try{
         const {userId} = auth()
@@ -88,7 +88,7 @@ export async function DELETE( req: Request, {params}: {params : {storeId: string
         }
         
 
-        if(!params.billboardId){
+        if(!params.sizeId){
             return new NextResponse("Billboard ID is required", {status: 400})
         }
 
@@ -105,7 +105,7 @@ export async function DELETE( req: Request, {params}: {params : {storeId: string
 
         const billboard = await prismadb.billboard.deleteMany({
             where: {
-                id: params.billboardId,
+                id: params.sizeId,
             },
          
         })
