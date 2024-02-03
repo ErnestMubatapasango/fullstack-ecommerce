@@ -1,7 +1,7 @@
 "use client"
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { BillboardColumn } from "./column"
+import { SizeColumn } from "./column"
 import { Button } from "@/components/ui/button"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
 import toast from "react-hot-toast"
@@ -12,7 +12,7 @@ import AlertModal from "@/components/modals/alert-modal"
 
 
 interface CellActionProps {
-    data: BillboardColumn
+    data: SizeColumn
 }
 
 export const CellAction: React.FC<CellActionProps> = ({data}) => {
@@ -31,13 +31,13 @@ export const CellAction: React.FC<CellActionProps> = ({data}) => {
     const onDelete = async() => {
         try{
             setLoading(true)
-            await axios.delete(`/api/${params.storeId}/billboards/${data.id}`)
-            router.push(`/${params.storeId}/billboards`) 
+            await axios.delete(`/api/${params.storeId}/sizes/${data.id}`)
+            router.push(`/${params.storeId}/sizes`) 
             router.refresh()
-            toast.success("Billboard has been deleted successfully")
+            toast.success("Size has been deleted successfully")
         }
         catch(error){
-            toast.error("You need to delete the products and categories first")
+            toast.error("Something went wrong")
         }
         finally{
             setLoading(false)
@@ -65,7 +65,7 @@ export const CellAction: React.FC<CellActionProps> = ({data}) => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem className="gap-1 cursor-pointer" onClick={()=> router.push(`/${params.storeId}/billboards/${data.id}`)}>
+                        <DropdownMenuItem className="gap-1 cursor-pointer" onClick={()=> router.push(`/${params.storeId}/sizes/${data.id}`)}>
                             <Edit className="w-4 h-4" />
                             Update
                         </DropdownMenuItem>
