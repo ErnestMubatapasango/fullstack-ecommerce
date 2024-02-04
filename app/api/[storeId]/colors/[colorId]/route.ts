@@ -2,29 +2,29 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, {params}: {params: {storeId: string, sizeId: string}}){
+export async function GET(req: Request, {params}: {params: {storeId: string, colorId: string}}){
 
     try{
 
-        if(!params.sizeId){
+        if(!params.colorId){
             return new NextResponse("Size ID is required", {status: 400})
         }
 
-        const size = prismadb.size.findUnique({
+        const color = prismadb.color.findUnique({
             where: {
-                id: params.sizeId
+                id: params.colorId
             }
         })
 
-        return NextResponse.json(size)
+        return NextResponse.json(color)
     }
     catch(error){
-        console.log('[SIZE_GET]', error);
+        console.log('[COLOR_GET]', error);
         return new NextResponse("Something went wrong", {status: 500})
     }
 }
 
-export async function PATCH( req: Request, {params}: {params : {storeId: string, sizeId: string}}) {
+export async function PATCH( req: Request, {params}: {params : {storeId: string, colorId: string}}) {
 
     try{
         const {userId} = auth()
@@ -43,7 +43,7 @@ export async function PATCH( req: Request, {params}: {params : {storeId: string,
             return new NextResponse("Value is required", {status: 400})
         }
 
-        if(!params.sizeId){
+        if(!params.colorId){
             return new NextResponse("Size ID is required", {status: 400})
         }
 
@@ -58,9 +58,9 @@ export async function PATCH( req: Request, {params}: {params : {storeId: string,
             return new NextResponse("Unauthorized", {status: 403})
         }
 
-        const size = await prismadb.size.updateMany({
+        const color = await prismadb.color.updateMany({
             where: {
-                id: params.sizeId,
+                id: params.colorId,
             },
             data: {
                 name,
@@ -68,17 +68,17 @@ export async function PATCH( req: Request, {params}: {params : {storeId: string,
             }
         })
 
-        return NextResponse.json(size)
+        return NextResponse.json(color)
       
     }
     catch(error){
-        console.log('[SIZE_PATCH', error)
+        console.log('[COLOR_PATCH', error)
         return new NextResponse("Internal server error", {status: 500})
     }
 }
 
 
-export async function DELETE( req: Request, {params}: {params : {storeId: string, sizeId: string}}) {
+export async function DELETE( req: Request, {params}: {params : {storeId: string, colorId: string}}) {
 
     try{
         const {userId} = auth()
@@ -88,7 +88,7 @@ export async function DELETE( req: Request, {params}: {params : {storeId: string
         }
         
 
-        if(!params.sizeId){
+        if(!params.colorId){
             return new NextResponse("Size ID is required", {status: 400})
         }
 
@@ -103,18 +103,18 @@ export async function DELETE( req: Request, {params}: {params : {storeId: string
             return new NextResponse("Unauthorized", {status: 403})
         }
 
-        const size = await prismadb.size.deleteMany({
+        const color = await prismadb.color.deleteMany({
             where: {
-                id: params.sizeId,
+                id: params.colorId,
             },
          
         })
 
-        return NextResponse.json(size)
+        return NextResponse.json(color)
       
     }
     catch(error){
-        console.log('[SIZE_DELETE', error)
+        console.log('[COLOR_DELETE', error)
         return new NextResponse("Internal server error", {status: 500})
     }
 }
