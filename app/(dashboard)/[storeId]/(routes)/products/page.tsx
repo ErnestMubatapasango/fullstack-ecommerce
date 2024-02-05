@@ -1,9 +1,9 @@
 import React from 'react'
-import BillboardClient from './components/client'
 import prismadb from '@/lib/prismadb'
 import { ProductColumn } from './components/column'
 import { format } from 'date-fns'
 import { formatter } from '@/lib/utils'
+import ProductClient from './components/client'
 
 const ProductsPage = async({params}: {params: {storeId: string}}) => {
 
@@ -36,7 +36,7 @@ const ProductsPage = async({params}: {params: {storeId: string}}) => {
   return (
     <div className='flex-col'>
        <div className='p-8 flex-1 space-y-4'>
-          <BillboardClient  data={formattedProducts}/>
+          <ProductClient  data={formattedProducts}/>
       </div>
     </div>
    
