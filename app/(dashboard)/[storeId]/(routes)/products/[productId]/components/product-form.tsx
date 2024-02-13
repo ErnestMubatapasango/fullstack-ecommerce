@@ -85,7 +85,7 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
             toast.success(toastMessage)
         }
         catch(error){
-            toast.error("Something went wrong")
+            toast.error("Something went wrong 1")
         }
         finally{
             setLoading(false)

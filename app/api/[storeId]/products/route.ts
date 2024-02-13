@@ -63,9 +63,9 @@ export async function POST( req: Request, {params}: {params: {storeId: string} }
                 isFeatured,
                 images: {
                     createMany: {
-                        data:{
+                        data:[
                             ...images.map((image: {url: string}) => image )
-                        }
+                        ]
                     }
                 },
                 storeId: params.storeId    
