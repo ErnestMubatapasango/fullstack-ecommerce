@@ -261,7 +261,7 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
                         name='sizeId'
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel>Category</FormLabel>
+                                <FormLabel>Size</FormLabel>
                                 
                                     <Select
                                         disabled={loading}
