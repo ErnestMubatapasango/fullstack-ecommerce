@@ -1,17 +1,33 @@
 import prismadb from '@/lib/prismadb'
 import React from 'react'
-import CategoryForm from './components/category-form'
+import ProductForm from './components/product-form'
 
 
-const CategoryPage = async({params} : {params: {categoryId: string, storeId: string}}) => {
+const ProductPage = async({params} : {params: {productId: string, storeId: string}}) => {
 
-    const category = await prismadb.category.findUnique({
+    const product = await prismadb.product.findUnique({
         where: {
-            id: params.categoryId
+            id: params.productId
+        },
+        include: {
+          images: true
         }
     })
-    const billboard = await prismadb.billboard.findMany({
-      where:{
+    
+    const categories = await prismadb.category.findMany({
+      where: {
+        storeId: params.storeId
+      }
+    })
+
+    const colors = await prismadb.color.findMany({
+      where: {
+        storeId: params.storeId
+      }
+    })
+
+    const sizes = await prismadb.size.findMany({
+      where: {
         storeId: params.storeId
       }
     })
@@ -19,11 +35,11 @@ const CategoryPage = async({params} : {params: {categoryId: string, storeId: str
   return (
     <div className='p-8'>
       
-        <CategoryForm billboards={billboard} initialData={category}/>
+        <ProductForm colors={colors} sizes={sizes} categories={categories} initialData={product}/>
       
     </div>
     
   )
 }
 
-export default CategoryPage
+export default ProductPage
