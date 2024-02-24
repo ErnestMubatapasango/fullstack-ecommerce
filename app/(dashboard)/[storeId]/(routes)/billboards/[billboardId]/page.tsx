@@ -4,17 +4,24 @@ import BillBoardForm from './components/billboard-form'
 
 
 const BillboardPage = async({params} : {params: {billboardId: string}}) => {
+        let initialData = null;
 
-    const billboard = await prismadb.billboard.findUnique({
-        where: {
-            id: params.billboardId
-        }
-    })
-   console.log(`Billboard ${billboard?.label}`)
+    if(params.billboardId === 'new'){
+        initialData = null;
+    }
+    else {
+        const billboard = await prismadb.billboard.findUnique({
+            where: {
+                id: params.billboardId
+            }
+        })
+        initialData = billboard
+    }
+ 
   return (
     <div className='p-8'>
       
-        <BillBoardForm initialData={billboard}/>
+        <BillBoardForm initialData={initialData}/>
       
     </div>
     
