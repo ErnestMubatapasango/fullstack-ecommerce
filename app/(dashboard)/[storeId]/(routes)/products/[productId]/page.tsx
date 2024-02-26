@@ -5,14 +5,24 @@ import ProductForm from './components/product-form'
 
 const ProductPage = async({params} : {params: {productId: string, storeId: string}}) => {
 
-    const product = await prismadb.product.findUnique({
+    let initialData = null;
+
+    if(initialData === 'new'){
+      initialData = null;
+    }
+    else {
+      const product = await prismadb.product.findUnique({
         where: {
             id: params.productId
         },
         include: {
           images: true
         }
-    })
+      })
+
+      initialData = product
+    }
+  
     
     const categories = await prismadb.category.findMany({
       where: {
@@ -35,7 +45,7 @@ const ProductPage = async({params} : {params: {productId: string, storeId: strin
   return (
     <div className='p-8'>
       
-        <ProductForm colors={colors} sizes={sizes} categories={categories} initialData={product}/>
+        <ProductForm colors={colors} sizes={sizes} categories={categories} initialData={initialData}/>
       
     </div>
     
