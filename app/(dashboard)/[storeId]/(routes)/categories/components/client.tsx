@@ -11,6 +11,8 @@ import { CategoryColumn, columns } from './column'
 import {DataTable}  from '@/components/ui/data-table'
 import { ApiList } from '@/components/ui/api-list'
 
+
+
 interface CategoryClientProps {
     data: CategoryColumn[]
 }
@@ -19,7 +21,9 @@ const CategoryClient: React.FC<CategoryClientProps> = ({data}) => {
 
     const router = useRouter()
     const params = useParams()
-
+    // const {objectId} = require('mongodb')
+    // const uniqueId = new objectId();
+    //const objectId = new ObjectId()
   return (
     <>
         <div className='flex items-center justify-between pb-3'>
@@ -27,7 +31,10 @@ const CategoryClient: React.FC<CategoryClientProps> = ({data}) => {
                 title={`Categories (${data.length})`}
                 description='Manage your store categories'
             />
-            <Button onClick={() => router.push(`/${params.storeId}/categories/new`)}>
+            <Button onClick={() => (
+                router.push(`/${params.storeId}/categories/new`)
+                //console.log(objectId.toHexString())
+            )}>
                 <Plus className='mr-2 h-4 w-4'/>
                 Add New
             </Button>
