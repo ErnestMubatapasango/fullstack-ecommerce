@@ -8,7 +8,7 @@ const ColorPage = async({params} : {params: {colorId: string}}) => {
       
   let initialData = null;
 
-  if(initialData === "new"){
+  if(params.colorId === "new"){
     initialData = null;
   }
   else {

@@ -9,7 +9,7 @@ const SizePage = async({params} : {params: {sizeId: string}}) => {
         
   let initialData = null;
 
-  if(initialData === "new"){
+  if(params.sizeId === "new"){
     initialData = null;
   }
   else {

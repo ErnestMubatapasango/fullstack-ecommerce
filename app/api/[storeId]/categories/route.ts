@@ -76,7 +76,7 @@ export async function GET( req: Request, {params}: {params : {storeId: string}})
         return NextResponse.json(categories)
     }
     catch(error){
-        console.log('[BILLBOARDS_GET]', error);
+        console.log('[CATEGORIES_GET]', error);
         return new NextResponse("Internal Server error", { status: 500 })
     }
 }

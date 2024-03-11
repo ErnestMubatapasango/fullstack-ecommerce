@@ -7,7 +7,7 @@ const ProductPage = async({params} : {params: {productId: string, storeId: strin
 
     let initialData = null;
 
-    if(initialData === 'new'){
+    if(params.productId === 'new'){
       initialData = null;
     }
     else {

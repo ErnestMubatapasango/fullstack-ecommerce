@@ -13,6 +13,9 @@ export async function GET(req: Request, {params}: {params: { categoryId: string}
         const category = prismadb.category.findUnique({
             where: {
                 id: params.categoryId
+            },
+            include: {
+                billboard: true
             }
         })
 
