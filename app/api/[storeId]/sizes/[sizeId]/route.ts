@@ -2,28 +2,27 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, {params}: {params: {storeId: string, sizeId: string}}){
+export async function GET( req: Request, {params}: {params : {sizeId: string}}) {
 
     try{
-
+      
         if(!params.sizeId){
             return new NextResponse("Size ID is required", {status: 400})
         }
 
-        const size = prismadb.size.findUnique({
+        const size = await prismadb.size.findUnique({
             where: {
                 id: params.sizeId
-            }
+            },
         })
 
         return NextResponse.json(size)
     }
     catch(error){
         console.log('[SIZE_GET]', error);
-        return new NextResponse("Something went wrong", {status: 500})
+        return new NextResponse("Internal Server error", { status: 500 })
     }
 }
-
 export async function PATCH( req: Request, {params}: {params : {storeId: string, sizeId: string}}) {
 
     try{

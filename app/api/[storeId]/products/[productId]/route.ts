@@ -2,23 +2,23 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, {params}: {params: {storeId: string, productId: string}}){
+export async function GET( req: Request, {params}: {params : {productId: string}}) {
 
     try{
-
+      
         if(!params.productId){
             return new NextResponse("Product ID is required", {status: 400})
         }
 
-        const product = prismadb.product.findUnique({
+        const product = await prismadb.product.findUnique({
             where: {
                 id: params.productId
             },
             include: {
-                images: true,
                 category: true,
-                size: true,
-                color: true
+                images: true,
+                color: true,
+                size: true
             }
         })
 
@@ -26,9 +26,10 @@ export async function GET(req: Request, {params}: {params: {storeId: string, pro
     }
     catch(error){
         console.log('[PRODUCT_GET]', error);
-        return new NextResponse("Something went wrong", {status: 500})
+        return new NextResponse("Internal Server error", { status: 500 })
     }
 }
+
 
 export async function PATCH( req: Request, {params}: {params : {storeId: string, productId: string}}) {
 

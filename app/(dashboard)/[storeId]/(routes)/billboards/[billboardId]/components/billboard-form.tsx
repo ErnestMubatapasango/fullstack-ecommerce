@@ -85,7 +85,7 @@ const BillBoardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             toast.success("Billboard has been deleted successfully")
         }
         catch(error){
-            toast.error("You need to delete the products and categories first")
+            toast.error("You need to delete the categories first")
         }
         finally{
             setLoading(false)

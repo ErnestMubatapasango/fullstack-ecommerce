@@ -2,15 +2,15 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, {params}: {params: {storeId: string, billboardId: string}}){
+export async function GET( req: Request, {params}: {params : {billboardId: string}}) {
 
     try{
-
+      
         if(!params.billboardId){
             return new NextResponse("Billboard ID is required", {status: 400})
         }
 
-        const billboard = prismadb.billboard.findUnique({
+        const billboard = await prismadb.billboard.findUnique({
             where: {
                 id: params.billboardId
             }
@@ -20,7 +20,7 @@ export async function GET(req: Request, {params}: {params: {storeId: string, bil
     }
     catch(error){
         console.log('[BILLBOARD_GET]', error);
-        return new NextResponse("Something went wrong", {status: 500})
+        return new NextResponse("Internal Server error", { status: 500 })
     }
 }
 

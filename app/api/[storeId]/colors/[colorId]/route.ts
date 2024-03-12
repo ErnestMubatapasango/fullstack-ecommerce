@@ -2,15 +2,15 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, {params}: {params: {storeId: string, colorId: string}}){
+export async function GET( req: Request, {params}: {params : {colorId: string}}) {
 
     try{
-
+      
         if(!params.colorId){
-            return new NextResponse("Size ID is required", {status: 400})
+            return new NextResponse("Color ID is required", {status: 400})
         }
 
-        const color = prismadb.color.findUnique({
+        const color = await prismadb.color.findUnique({
             where: {
                 id: params.colorId
             }
@@ -19,8 +19,8 @@ export async function GET(req: Request, {params}: {params: {storeId: string, col
         return NextResponse.json(color)
     }
     catch(error){
-        console.log('[COLOR_GET]', error);
-        return new NextResponse("Something went wrong", {status: 500})
+        console.log('[CATEGORY_GET]', error);
+        return new NextResponse("Internal Server error", { status: 500 })
     }
 }
 
