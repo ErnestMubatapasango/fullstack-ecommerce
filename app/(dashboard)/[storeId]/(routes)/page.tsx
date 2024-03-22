@@ -1,8 +1,10 @@
+import { getGraphRevenue } from "@/app/actions/get-graph-revenue"
 import { getTotalRevenue } from "@/app/actions/get-revenue-total"
 import { getSalesCount } from "@/app/actions/get-sales-count"
 import { getStockCount } from "@/app/actions/get-stock-count"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Heading from "@/components/ui/heading"
+import Overview from "@/components/ui/overview"
 import { Separator } from "@/components/ui/separator"
 import prismadb from "@/lib/prismadb"
 import { formatter } from "@/lib/utils"
@@ -25,6 +27,8 @@ const DashboardPage: React.FC<DashbaordPageProps> = async({params}) => {
     const totalRevenue = await getTotalRevenue(params.storeId)
     const salesCount = await getSalesCount(params.storeId)
     const stockCount = await getStockCount(params.storeId)
+    const graphRevenue = await getGraphRevenue(params.storeId)
+
   return (
     <div className="flex-col">
         <div className="flex-1 space-y-4 p-8 pt-6">
@@ -36,7 +40,7 @@ const DashboardPage: React.FC<DashbaordPageProps> = async({params}) => {
                         <CardTitle>
                             Total Revenue
                         </CardTitle>
-                        <DollarSign className="h-5 w-5 text-muted-foreground" />
+                        <DollarSign className="h-8 w-8 text-muted-foreground" />
                     </CardHeader>
                     <CardContent className="text-2xl font-bold">
                         {formatter.format(totalRevenue)}
@@ -48,7 +52,7 @@ const DashboardPage: React.FC<DashbaordPageProps> = async({params}) => {
                         <CardTitle>
                             Sales
                         </CardTitle>
-                        <CreditCard className="h-5 w-5 text-muted-foreground" />
+                        <CreditCard className="h-8 w-8 text-muted-foreground" />
                     </CardHeader>
                     <CardContent className="text-2xl font-bold">
                         +{salesCount}
@@ -60,13 +64,21 @@ const DashboardPage: React.FC<DashbaordPageProps> = async({params}) => {
                         <CardTitle>
                             Products in Stock
                         </CardTitle>
-                        <Package className="h-5 w-5 text-muted-foreground" />
+                        <Package className="h-8 w-8 text-muted-foreground" />
                     </CardHeader>
                     <CardContent className="text-2xl font-bold">
                         {stockCount}
                     </CardContent>
                 </Card>
             </div>
+            <Card className="col-span-4">
+                <CardHeader>
+                    <CardTitle>Overview</CardTitle>
+                </CardHeader>
+                <CardContent className="pl-2">
+                    <Overview data={graphRevenue} />
+                </CardContent>
+            </Card>
         </div>
         Active Store: {store?.name}
     </div>
