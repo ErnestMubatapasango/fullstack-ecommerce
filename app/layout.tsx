@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { ModalProvider } from '@/provider/modal-provider'
 import ToastProvider from '@/provider/toast-provider'
 import { PayPalScriptProvider} from "@paypal/react-paypal-js"
+import { ThemeProvider } from '@/provider/theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,9 +31,11 @@ export default function RootLayout({
       {/* <PayPalScriptProvider options={initialOptions}> */}
       <html lang="en">
         <body className={inter.className}>
-          <ToastProvider />
-          <ModalProvider />
-          {children}
+          <ThemeProvider  attribute="class" defaultTheme="system" enableSystem>
+            <ToastProvider />
+            <ModalProvider />
+            {children}
+          </ThemeProvider>
         </body>
       </html>
       {/* </PayPalScriptProvider> */}
