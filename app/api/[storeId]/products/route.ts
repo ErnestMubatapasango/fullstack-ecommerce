@@ -107,7 +107,6 @@ export async function GET( req: Request, {params}: {params : {storeId: string, c
                 colorId,
                 categoryId,
                 sizeId,
-                quantity: 0,
                 isFeatured: isFeatured ? true : undefined,
                 isArchived: false
             },
