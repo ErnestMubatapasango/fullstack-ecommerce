@@ -80,7 +80,6 @@ const DashboardPage: React.FC<DashbaordPageProps> = async({params}) => {
                 </CardContent>
             </Card>
         </div>
-        Active Store: {store?.name}
     </div>
   )
 }
