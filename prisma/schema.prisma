@@ -95,6 +95,7 @@ model Product {
   orderItems   OrderItem[]
   name         String
   price        Float
+  quantity     Int
   isFeatured   Boolean     @default(false)
   isArchived   Boolean     @default(false)
   createdAt    DateTime    @default(now())
