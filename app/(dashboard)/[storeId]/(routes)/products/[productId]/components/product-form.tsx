@@ -26,6 +26,7 @@ const formSchema = z.object({
     name: z.string().min(1),
     images: z.object({url: z.string()}).array(),
     price: z.coerce.number().min(1),
+    quantity: z.coerce.number().min(1),
     colorId: z.string().min(1),
     sizeId: z.string().min(1),
     categoryId: z.string().min(1),
@@ -55,6 +56,7 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
             name: '',
             images: [],
             price: 0,
+            quantity: 0,
             colorId: '',
             categoryId: '',
             sizeId: '',
@@ -172,7 +174,7 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
                         name='price'
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel>Price</FormLabel>
+                                <FormLabel>Price ($)</FormLabel>
                                 <FormControl>
                                     <Input type='number' disabled={loading} placeholder="10.26" {...field} />
                                 </FormControl>
@@ -180,6 +182,21 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
                             </FormItem>
                         )}
                     />
+
+                    <FormField 
+                        control={form.control}
+                        name='quantity'
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Quantity</FormLabel>
+                                <FormControl>
+                                    <Input type='number' disabled={loading} placeholder="1" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
                     <FormField 
                         control={form.control}
                         name='categoryId'
