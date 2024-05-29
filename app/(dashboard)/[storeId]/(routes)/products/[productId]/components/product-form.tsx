@@ -56,7 +56,7 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
             name: '',
             images: [],
             price: 0,
-            quantity: 0,
+            //quantity: 0,
             colorId: '',
             categoryId: '',
             sizeId: '',
@@ -183,7 +183,7 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
                         )}
                     />
 
-                    <FormField 
+                    {/* <FormField 
                         control={form.control}
                         name='quantity'
                         render={({field}) => (
@@ -195,7 +195,7 @@ const ProductForm: React.FC<CategoryFormProps> = ({initialData, categories, colo
                                 <FormMessage />
                             </FormItem>
                         )}
-                    />
+                    /> */}
 
                     <FormField 
                         control={form.control}
