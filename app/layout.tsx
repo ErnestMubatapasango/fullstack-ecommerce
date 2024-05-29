@@ -29,7 +29,6 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-      {/* </PayPalScriptProvider> */}
     </ClerkProvider>
   )
 }
