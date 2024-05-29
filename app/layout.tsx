@@ -4,7 +4,6 @@ import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ModalProvider } from '@/provider/modal-provider'
 import ToastProvider from '@/provider/toast-provider'
-import { PayPalScriptProvider} from "@paypal/react-paypal-js"
 import { ThemeProvider } from '@/provider/theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,16 +18,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
-  // const initialOptions = {
-  //   clientId: "AVD4_P5KrTNuFILTFV-yjnv8nqVm29iZQjGxPyprDoCQH6X4G9AzS3Kow1UsfyB_qzQnmyhqcth4pDWE",
-  //   currency: "USD",
-  //   intent: "capture",
-  // };
-
   return (
     <ClerkProvider>
-      {/* <PayPalScriptProvider options={initialOptions}> */}
       <html lang="en">
         <body className={inter.className}>
           <ThemeProvider  attribute="class" defaultTheme="system" enableSystem>
