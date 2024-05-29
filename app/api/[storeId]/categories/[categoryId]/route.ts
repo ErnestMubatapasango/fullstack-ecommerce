@@ -7,7 +7,7 @@ export async function GET( req: Request, {params}: {params : {categoryId: string
     try{
       
         if(!params.categoryId){
-            return new NextResponse("Billboard ID is required", {status: 400})
+            return new NextResponse("Category ID is required", {status: 400})
         }
 
         const category = await prismadb.category.findUnique({

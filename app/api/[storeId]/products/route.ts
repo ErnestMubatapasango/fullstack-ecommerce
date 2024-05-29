@@ -11,7 +11,7 @@ export async function POST( req: Request, {params}: {params: {storeId: string} }
     try{
         const { userId } = auth()
         const body = await req.json()
-        const { name, price,images, categoryId, sizeId, colorId, isFeatured, isArchived } = body;
+        const { name, price, quantity, images, categoryId, sizeId, colorId, isFeatured, isArchived } = body;
 
         if(!userId){
             return new NextResponse("Unauthenticated", {status: 401})
@@ -26,6 +26,9 @@ export async function POST( req: Request, {params}: {params: {storeId: string} }
         
         if(!price){
             return new NextResponse("Price  is required", {status: 400})
+        }
+        if(!quantity){
+            return new NextResponse("Quantity  is required", {status: 400})
         }
         if(!categoryId){
             return new NextResponse("Category ID is required", {status: 400})
@@ -56,6 +59,7 @@ export async function POST( req: Request, {params}: {params: {storeId: string} }
             data: {
                 name,
                 price,
+                quantity,
                 categoryId,
                 sizeId,
                 colorId,
